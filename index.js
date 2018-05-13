@@ -88,63 +88,49 @@ function handleMessage(sender_psid, received_message, user_first_name) {
   if (received_message.text) {
 
     let user_first_name = "asd";
-    let response = {};
     request('https://graph.facebook.com/v2.6/'+ sender_psid + '?fields=first_name,last_name&access_token=EAADErAHrZBCABAASPN5wugmSGxIGKjduZBc6DCRn5GiHLtvoKRWd2bE2QXeXBFV1MybSW1MkHaB1xNujxusWGi8au1QWiysTiR41OiwEZC4CJSbmI2IWfAxRKZBSL8BIVMCMdYFJXUF19tZBnQKZCeZC9uZC83LgvmG1t7uKsepUtgZDZD', { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
       user_first_name = body.first_name;
       // Creates the payload for a basic text messages
-      response = {
-        "text": 'Hello '+ user_first_name +', Would you like to set an appointment?'
+      let response = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "button",
+            "elements": [{
+              "text": "Hello "+ user_first_name +", Would you like to set an appointment?",
+              "buttons": [
+                {
+                  "type": "postback",
+                  "title": "Yes!",
+                  "payload": "yes",
+                },
+                {
+                  "type": "postback",
+                  "title": "No!",
+                  "payload": "no",
+                }
+              ]
+            }]
+          }
+        }
       }
       // Sends the response message
       callSendAPI(sender_psid, response);
     });
-
-  } else if (received_message.attachments) {
-    // Gets the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ]
-          }]
-        }
-      }
-    }
-    // Sends the response message
-    callSendAPI(sender_psid, response);
   }
 }
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
   let response;
-
   // Gets the payload of the postback
   let payload = received_postback.payload;
-
   // Set the response based on the postback payload
   if ( payload === 'yes') {
     response = { "text": "Thanks!" }
   } else if ( payload === 'no') {
-    response = { "text": "Oops, try sending another image."}
+    response = { "text": "Got it! If you'd like to have some more informations pls call +39 123 123 123 123 123"}
   }
 
   // Send the message to acknowledge the postback
