@@ -83,8 +83,10 @@ app.get('/webhook', (req, res) => {
 function getUserProfile() {
   request('https://graph.facebook.com/v2.6/<PSID>?fields=first_name,last_name&access_token=EAADErAHrZBCABAASPN5wugmSGxIGKjduZBc6DCRn5GiHLtvoKRWd2bE2QXeXBFV1MybSW1MkHaB1xNujxusWGi8au1QWiysTiR41OiwEZC4CJSbmI2IWfAxRKZBSL8BIVMCMdYFJXUF19tZBnQKZCeZC9uZC83LgvmG1t7uKsepUtgZDZD', {json: true}, (err, res, body) => {
     if (err) { return console.log(err); }
-    console.log(body);
-    else { return body; }
+    else {
+      console.log(body);
+       return body;
+    }
   })
 }
 
