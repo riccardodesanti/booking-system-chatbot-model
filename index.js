@@ -94,7 +94,7 @@ function handleMessage(sender_psid, received_message) {
   // Checks if the message contains text
   if (received_message.text) {
     // Creates the payload for a basic text messages
-    user_profile = getUserProfile()
+    const user_profile = getUserProfile()
     response = {
       "text": `Hello "${user_profile.first_name}"! Would you like to set an appointment?`
     }
