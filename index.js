@@ -32,7 +32,7 @@ if (body.object === 'page') {
     let sender_psid = webhook_event.sender.id;
     console.log('Sender PSID: ' + sender_psid);
 
-    var user_first_name = ""
+    var user_first_name = "asd";
     request('https://graph.facebook.com/v2.6/'+ sender_psid + '?fields=first_name,last_name&access_token=EAADErAHrZBCABAASPN5wugmSGxIGKjduZBc6DCRn5GiHLtvoKRWd2bE2QXeXBFV1MybSW1MkHaB1xNujxusWGi8au1QWiysTiR41OiwEZC4CJSbmI2IWfAxRKZBSL8BIVMCMdYFJXUF19tZBnQKZCeZC9uZC83LgvmG1t7uKsepUtgZDZD', { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
       else { user_first_name = body.first_name; }
@@ -94,7 +94,7 @@ function handleMessage(sender_psid, received_message, user_first_name) {
   if (received_message.text) {
     // Creates the payload for a basic text messages
     response = {
-      "text": 'Hello'+ user_first_name +'Marco! Would you like to set an appointment?'
+      "text": 'Hello '+ user_first_name +', Would you like to set an appointment?'
     }
   } else if (received_message.attachments) {
     // Gets the URL of the message attachment
