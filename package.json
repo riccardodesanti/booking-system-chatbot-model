@@ -18,6 +18,7 @@
   "homepage": "https://github.com/riccardodesanti/booking-system-chatbot-model#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "request": "^2.85.0"
   }
 }
