@@ -97,7 +97,6 @@ function handleMessage(sender_psid, received_message, user_first_name) {
           "type": "template",
           "payload": {
             "template_type": "button",
-            "elements": [{
               "text": "Hello "+ user_first_name +", Would you like to set an appointment?",
               "buttons": [
                 {
@@ -111,7 +110,6 @@ function handleMessage(sender_psid, received_message, user_first_name) {
                   "payload": "no",
                 }
               ]
-            }]
           }
         }
       }
