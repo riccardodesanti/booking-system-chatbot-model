@@ -92,10 +92,12 @@ function handleMessage(sender_psid, received_message, user_first_name) {
     request('https://graph.facebook.com/v2.6/'+ sender_psid + '?fields=first_name,last_name&access_token=EAADErAHrZBCABAASPN5wugmSGxIGKjduZBc6DCRn5GiHLtvoKRWd2bE2QXeXBFV1MybSW1MkHaB1xNujxusWGi8au1QWiysTiR41OiwEZC4CJSbmI2IWfAxRKZBSL8BIVMCMdYFJXUF19tZBnQKZCeZC9uZC83LgvmG1t7uKsepUtgZDZD', { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
       user_first_name = body.first_name;
-      // Creates the payload for a basic text messages 
+      // Creates the payload for a basic text messages
       response = {
         "text": 'Hello '+ user_first_name +', Would you like to set an appointment?'
       }
+      // Sends the response message
+      callSendAPI(sender_psid, response);
     });
 
   } else if (received_message.attachments) {
@@ -126,9 +128,9 @@ function handleMessage(sender_psid, received_message, user_first_name) {
         }
       }
     }
+    // Sends the response message
+    callSendAPI(sender_psid, response);
   }
-  // Sends the response message
-  callSendAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events
