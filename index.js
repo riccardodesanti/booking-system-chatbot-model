@@ -92,9 +92,8 @@ function handleMessage(sender_psid, received_message) {
   // Checks if the message contains text
   if (received_message.text) {
     // Creates the payload for a basic text messages
-    const user_profile = getUserProfile()
     response = {
-      "text": `Hello "${user_profile != undefined ? user_profile.first_name : 'Marco' }"! Would you like to set an appointment?`
+      "text": `Hello Marco! Would you like to set an appointment?`
     }
   } else if (received_message.attachments) {
     // Gets the URL of the message attachment
