@@ -34,12 +34,12 @@ if (body.object === 'page') {
 
     request('https://graph.facebook.com/v2.6/"{sender_psid}"?fields=first_name,last_name&access_token=EAADErAHrZBCABAASPN5wugmSGxIGKjduZBc6DCRn5GiHLtvoKRWd2bE2QXeXBFV1MybSW1MkHaB1xNujxusWGi8au1QWiysTiR41OiwEZC4CJSbmI2IWfAxRKZBSL8BIVMCMdYFJXUF19tZBnQKZCeZC9uZC83LgvmG1t7uKsepUtgZDZD', { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
-      console.log(body.first_name);
+      console.log(res.first_name);
     });
 
     // Check if the event is a message or postback and pass the event to the appropriate handler function
     if (webhook_event.message) {
-      handleMessage(sender_psid, webhook_event.message, user_first_name);
+      handleMessage(sender_psid, webhook_event.message);
     } else if (webhook_event.postback) {
       handlePostback(sender_psid, webhook_event.postback);
     }
