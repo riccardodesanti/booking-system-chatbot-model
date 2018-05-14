@@ -86,14 +86,13 @@ function firstEntity(nlp, name) {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message, user_first_name) {
-  let response;
 
   // Checks if message contains greetings or date/time
   const greeting = firstEntity(received_message.nlp, 'greetings');
-  const datetime = firstEntity(received_message.nlp, 'datetime');
+  const date = firstEntity(received_message.nlp, 'datetime');
 
-  if (datetime && datetime.confidence > 0.8) {
-    response = "Please confirm that you would like to visit us on ";
+  if (date && date.confidence > 0.3) {
+    let response = "Please confirm that you would like to visit us on ";
     // Sends the response message
     callSendAPI(sender_psid, response);
   }
