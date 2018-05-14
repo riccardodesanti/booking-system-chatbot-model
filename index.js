@@ -92,7 +92,7 @@ function handleMessage(sender_psid, received_message, user_first_name) {
   const date = firstEntity(received_message.nlp, 'datetime');
 
   if (date && date.confidence > 0.8) {
-    let response = { "text" : "Please confirm that you would like to visit us on " }
+    let response = { "text" : "Please confirm that you would like to visit us on "+ date}
     // Sends the response message
     callSendAPI(sender_psid, response);
   }
