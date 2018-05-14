@@ -84,13 +84,20 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message, user_first_name) {
   let response;
 
-  // Checks if the message contains text
-  if (received_message.text) {
+  // Checks if message contains greetings or date/time
+  const greeting = firstEntity(received_message.nlp, 'greetings');
+  const date = firstEntity(received_message.nlp, 'datetime');
 
-    let user_first_name = "asd";
+  if ( datetime && datetime.confidence > 0.8) {
+    response = "Please confirm that you would like to visit us on "+ datetime;
+    // Sends the response message
+    callSendAPI(sender_psid, response);
+  }
+  else {
+    let user_first_name;
     request('https://graph.facebook.com/v2.6/'+ sender_psid + '?fields=first_name,last_name&access_token=EAADErAHrZBCABAASPN5wugmSGxIGKjduZBc6DCRn5GiHLtvoKRWd2bE2QXeXBFV1MybSW1MkHaB1xNujxusWGi8au1QWiysTiR41OiwEZC4CJSbmI2IWfAxRKZBSL8BIVMCMdYFJXUF19tZBnQKZCeZC9uZC83LgvmG1t7uKsepUtgZDZD', { json: true }, (err, res, body) => {
       if (err) { return console.log(err); }
-      user_first_name = body.first_name;
+      let user_first_name = body.first_name;
       // Creates the payload for a basic text messages
       let response = {
         "attachment": {
@@ -128,7 +135,7 @@ function handlePostback(sender_psid, received_postback) {
   if ( payload === 'yes') {
     response = { "text": "Thanks!" }
   } else if ( payload === 'no') {
-    response = { "text": "Got it! If you'd like to have some more informations pls call +39 123 123 123 123 123"}
+    response = { "text": "Got it! If you'd like to have more information pls call +39 123 123 123 123 123"}
   }
 
   // Send the message to acknowledge the postback
