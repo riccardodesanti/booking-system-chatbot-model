@@ -80,6 +80,10 @@ app.get('/webhook', (req, res) => {
   }
 });
 
+function firstEntity(nlp, name) {
+  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+}
+
 // Handles messages events
 function handleMessage(sender_psid, received_message, user_first_name) {
   let response;
